@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kraken × Alkimi — Campaign Proposal</title>
+  <!-- Celias (Kraken's typeface) — substitute with Montserrat until font files are self-hosted -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0D0D14;
+      --sidebar: #13131C;
+      --card: #1A1A27;
+      --card-hover: #1F1F30;
+      --border: #252535;
+      --border-light: #2E2E44;
+      --purple: #5741D9;
+      --purple-light: #7B5EF8;
+      --purple-glow: rgba(87,65,217,0.3);
+      --green: #00C896;
+      --blue: #4B9EFF;
+      --text: #FFFFFF;
+      --text-muted: #8A8AA0;
+      --text-dim: #4A4A60;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 230px;
+      min-width: 230px;
+      background: var(--sidebar);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 18px 0;
+    }
+    .sidebar-logo {
+      padding: 0 18px 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+    .logo-mark {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, #5741D9, #8A5EFF);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-text { font-size: 15px; font-weight: 700; letter-spacing: -0.2px; line-height: 1.2; }
+    .logo-sub  { font-size: 10px; color: var(--text-muted); }
+
+    .nav-group { padding: 0 10px; margin-bottom: 6px; }
+    .nav-label {
+      font-size: 9.5px; font-weight: 600; color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 1px;
+      padding: 6px 8px 4px;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 9px;
+      padding: 8px 10px; border-radius: 7px;
+      cursor: pointer; color: var(--text-muted);
+      font-size: 13.5px; font-weight: 500;
+      transition: all 0.13s;
+      user-select: none;
+    }
+    .nav-item:hover { background: var(--card); color: var(--text); }
+    .nav-item.active { background: rgba(87,65,217,0.18); color: #A48EFF; }
+    .nav-icon { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 14px 18px;
+      border-top: 1px solid var(--border);
+    }
+    .contact-name  { font-size: 12.5px; font-weight: 600; }
+    .contact-role  { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; }
+    .contact-email { font-size: 10.5px; color: var(--purple-light); margin-top: 4px; }
+
+    /* ── MAIN ── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+
+    .topbar {
+      height: 52px; min-height: 52px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      padding: 0 22px; gap: 10px;
+    }
+    .asset-name { font-size: 17px; font-weight: 700; }
+    .pill {
+      font-size: 11px; padding: 3px 9px; border-radius: 20px;
+      background: var(--card); border: 1px solid var(--border-light);
+      color: var(--text-muted);
+    }
+    .pill.accent { background: rgba(87,65,217,0.15); border-color: rgba(87,65,217,0.3); color: #A48EFF; }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+    .deck-btn {
+      font-size: 12px; padding: 6px 14px; border-radius: 7px;
+      background: var(--card); border: 1px solid var(--border-light);
+      color: var(--text); cursor: pointer; text-decoration: none;
+      transition: background 0.13s;
+    }
+    .deck-btn:hover { background: var(--card-hover); }
+
+    .content-area { flex: 1; display: flex; overflow: hidden; }
+
+    /* ── CENTER ── */
+    .center { flex: 1; overflow-y: auto; padding: 22px 24px; min-width: 0; }
+
+    .hero-blurb {
+      font-size: 13px; color: var(--text-muted); line-height: 1.65;
+      max-width: 660px; margin-bottom: 22px;
+    }
+
+    /* Price-style budget display */
+    .budget-header { margin-bottom: 2px; }
+    .budget-amount {
+      font-size: 38px; font-weight: 700; letter-spacing: -1.5px;
+      font-variant-numeric: tabular-nums;
+    }
+    .budget-sub {
+      font-size: 13px; color: var(--green); margin-top: 5px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .up-arrow {
+      display: inline-block; width: 0; height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 8px solid var(--green);
+    }
+
+    /* ── CHART ── */
+    .chart-wrap {
+      position: relative; height: 240px;
+      margin: 18px 0 0;
+      border-bottom: 1px solid var(--border);
+    }
+    #chartCanvas { width: 100%; height: 100%; display: block; }
+
+    .chart-tooltip {
+      position: absolute;
+      background: var(--card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 8px 12px;
+      pointer-events: none;
+      display: none;
+      font-size: 12px;
+      line-height: 1.6;
+      z-index: 10;
+      white-space: nowrap;
+    }
+
+    /* ── BUDGET TIERS ── */
+    .tier-row {
+      display: flex; align-items: center; gap: 3px;
+      padding: 10px 0 18px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .tier-btn {
+      padding: 5px 13px; border-radius: 6px;
+      font-size: 12.5px; font-weight: 500;
+      border: none; background: transparent;
+      color: var(--text-muted); cursor: pointer;
+      transition: all 0.13s;
+    }
+    .tier-btn:hover { background: var(--card); color: var(--text); }
+    .tier-btn.active { background: var(--card); color: var(--text); font-weight: 600; }
+    .slider-wrap { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+    .slider-lbl { font-size: 11px; color: var(--text-muted); }
+    input[type=range] {
+      width: 150px; appearance: none; height: 3px;
+      border-radius: 2px; background: var(--border-light); outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      appearance: none; width: 14px; height: 14px; border-radius: 50%;
+      background: var(--purple-light); cursor: pointer;
+      box-shadow: 0 0 10px var(--purple-glow);
+    }
+
+    /* ── GEO GRID ── */
+    .section-label {
+      font-size: 11px; font-weight: 600; color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px;
+    }
+    .geo-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px; margin-bottom: 24px;
+    }
+    .geo-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 10px;
+      cursor: pointer; transition: all 0.13s;
+      border-top-width: 3px;
+    }
+    .geo-card:hover { background: var(--card-hover); }
+    .geo-flag { font-size: 18px; display: block; margin-bottom: 6px; }
+    .geo-name { font-size: 12px; font-weight: 700; }
+    .geo-budget { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; font-variant-numeric: tabular-nums; }
+    .geo-imps  { font-size: 10.5px; margin-top: 3px; font-variant-numeric: tabular-nums; font-weight: 600; }
+
+    /* ── TABLE ── */
+    .campaign-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-bottom: 32px; }
+    .campaign-table th {
+      text-align: left; padding: 8px 12px;
+      color: var(--text-muted); font-weight: 500;
+      font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+    }
+    .campaign-table td {
+      padding: 9px 12px; border-bottom: 1px solid var(--border);
+      font-variant-numeric: tabular-nums;
+    }
+    .campaign-table tbody tr:hover td { background: var(--card); }
+    .tag {
+      font-size: 10px; padding: 2px 7px; border-radius: 4px; font-weight: 600;
+    }
+    .tag-ctv    { background: rgba(75,158,255,0.15);  color: #4B9EFF; }
+    .tag-tradfi { background: rgba(0,200,150,0.15);   color: #00C896; }
+    .tag-studio { background: rgba(251,191,36,0.15);  color: #FBBF24; }
+
+    /* ── RIGHT PANEL ── */
+    .right-panel {
+      width: 290px; min-width: 290px;
+      border-left: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+    }
+    .panel-tabs {
+      display: flex; border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .panel-tab {
+      flex: 1; text-align: center; padding: 10px 3px;
+      font-size: 10px; font-weight: 600; cursor: pointer;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      transition: all 0.13s;
+    }
+    .panel-tab.active { color: var(--text); border-bottom-color: var(--purple-light); }
+
+    .panel-body { padding: 18px; }
+    .panel-stat { margin-bottom: 18px; }
+    .panel-stat-label {
+      font-size: 10px; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px;
+    }
+    .panel-stat-value { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .panel-stat-sub { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; }
+
+    hr.pdiv { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+
+    .panel-row {
+      display: flex; justify-content: space-between;
+      font-size: 12.5px; margin-bottom: 9px;
+    }
+    .panel-row-lbl { color: var(--text-muted); }
+    .panel-row-val { font-weight: 600; font-variant-numeric: tabular-nums; }
+
+    .av-box {
+      background: rgba(87,65,217,0.1);
+      border: 1px solid rgba(87,65,217,0.22);
+      border-radius: 10px; padding: 13px; margin-top: 16px;
+    }
+    .av-title {
+      font-size: 10px; font-weight: 700; color: #A48EFF;
+      text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px;
+    }
+    .av-item {
+      display: flex; align-items: flex-start; gap: 6px;
+      font-size: 11.5px; color: var(--text-muted); padding: 3px 0;
+    }
+    .av-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--purple-light); margin-top: 5px; flex-shrink: 0;
+    }
+
+    .panel-cta {
+      display: block; width: 100%; padding: 13px;
+      background: var(--purple); color: white; border: none;
+      border-radius: 10px; font-size: 14px; font-weight: 700;
+      cursor: pointer; margin-top: 18px; text-align: center;
+      text-decoration: none; transition: background 0.13s;
+    }
+    .panel-cta:hover { background: var(--purple-light); }
+
+    /* ── FILTERS ── */
+    .filter-bar {
+      display: flex; flex-direction: column; gap: 8px;
+      margin-bottom: 14px;
+    }
+    .filter-row {
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    }
+    .filter-lbl {
+      font-size: 10px; font-weight: 700; color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 0.8px;
+      min-width: 46px;
+    }
+    .fchip {
+      padding: 3px 11px; border-radius: 20px;
+      font-size: 11.5px; font-weight: 500;
+      border: 1px solid var(--border-light);
+      background: transparent; color: var(--text-muted);
+      cursor: pointer; transition: all 0.13s; font-family: inherit;
+    }
+    .fchip:hover { background: var(--card); color: var(--text); }
+    .site-chip {
+      background: var(--card); border: 1px solid var(--border-light);
+      border-radius: 4px; padding: 3px 7px;
+      font-size: 10.5px; color: var(--text-muted);
+    }
+    .fchip.active {
+      color: #fff; border-color: transparent;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo" style="flex-direction:column; align-items:flex-start; gap:6px;">
+    <!-- Kraken logo: dome + 3 prongs + wordmark (gap overlays use sidebar bg) -->
+    <svg width="100" viewBox="0 0 200 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Dome: large CCW arc from (193,100) through apex (100,7) to (7,100) -->
+      <path d="M193,100 A93,93 0 0,0 7,100 Z" fill="#5741D9"/>
+      <!-- 4 short prongs — only extend ~28px below dome baseline so dome stays dominant -->
+      <rect x="7"   y="66" width="36" height="62" rx="18" fill="#5741D9"/>
+      <rect x="57"  y="66" width="36" height="62" rx="18" fill="#5741D9"/>
+      <rect x="107" y="66" width="36" height="62" rx="18" fill="#5741D9"/>
+      <rect x="157" y="66" width="36" height="62" rx="18" fill="#5741D9"/>
+      <!-- 3 gap overlays in sidebar bg — reach well into the dome -->
+      <rect x="43"  y="48" width="14" height="92" rx="7" fill="#13131C"/>
+      <rect x="93"  y="48" width="14" height="92" rx="7" fill="#13131C"/>
+      <rect x="143" y="48" width="14" height="92" rx="7" fill="#13131C"/>
+      <!-- Wordmark -->
+      <text x="100" y="200"
+            text-anchor="middle"
+            font-family="'Montserrat', 'Helvetica Neue', sans-serif"
+            font-size="28" font-weight="800" letter-spacing="1"
+            fill="#5741D9">kraken</text>
+    </svg>
+    <div class="logo-sub" style="padding-left:2px; font-size:10px; color:#4A4A60;">× Alkimi Proposal</div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-label">Campaign</div>
+    <div class="nav-item active" onclick="scrollSection('top')">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+        <rect x="1" y="1" width="6" height="6" rx="1.5" fill="currentColor"/>
+        <rect x="9" y="1" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.45"/>
+        <rect x="1" y="9" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.45"/>
+        <rect x="9" y="9" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.45"/>
+      </svg>
+      Overview
+    </div>
+    <div class="nav-item" onclick="scrollSection('budget')">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+        <path d="M2 12L5 8L8 10L12 5L14 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      Budget Planner
+    </div>
+    <div class="nav-item" onclick="scrollSection('markets')">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4" fill="none"/>
+        <path d="M8 2C8 2 5 5 5 8s3 6 3 6" stroke="currentColor" stroke-width="1.4" fill="none"/>
+        <path d="M2 8h12" stroke="currentColor" stroke-width="1.4"/>
+      </svg>
+      Markets
+    </div>
+    <div class="nav-item" onclick="scrollSection('lines')">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+        <rect x="1" y="4" width="14" height="1.5" rx="0.75" fill="currentColor"/>
+        <rect x="1" y="7.5" width="10" height="1.5" rx="0.75" fill="currentColor" opacity="0.55"/>
+        <rect x="1" y="11" width="12" height="1.5" rx="0.75" fill="currentColor" opacity="0.35"/>
+      </svg>
+      Line Items
+    </div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-label">Resources</div>
+    <a class="nav-item" href="https://docs.google.com/presentation/d/1XVyrH8oV5NWH2APyI3sSzM5tvKSGryDItvwouk5R7m4/edit" target="_blank"
+       style="color:#A48EFF; background:rgba(87,65,217,0.1); text-decoration:none;">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none">
+        <path d="M3 3h4v1.5H4.5v7h7V10H13v4H3z" fill="currentColor" opacity="0.5"/>
+        <path d="M9 3h4v4h-1.5V5.56L7.28 9.78l-1.06-1.06L10.44 4.5H9z" fill="currentColor"/>
+      </svg>
+      View Alkimi Deck ↗
+    </a>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="contact-name">Lauren</div>
+    <div class="contact-role">Global Head of Sales, Crypto</div>
+    <div class="contact-email">lauren@alkimiexchange.com</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <span class="asset-name">Proactive Proposal</span>
+    <span class="pill">TradFi/Consumer</span>
+    <span class="pill">7 Markets</span>
+    <div class="topbar-right">
+    </div>
+  </div>
+
+  <div class="content-area">
+
+    <!-- CENTER PANEL -->
+    <div class="center" id="top">
+
+      <p class="hero-blurb">
+        Kraken is shifting its focus from the crypto-native audience of Pro, to mainstream consumers and traditional finance investors across priority markets. Alkimi's recommendation uses 100% Share of Screen across premium financial press and non-skippable CTV in the US, Canada, Germany, France, Italy, Australia, and Brazil to reach that audience at scale (can expand this strategy globally as priority markets shift).
+      </p>
+
+      <!-- BUDGET DISPLAY -->
+      <div class="budget-header" id="budget">
+        <div class="budget-amount" id="budgetDisplay">$250,000</div>
+        <div class="budget-sub">
+          <span class="up-arrow"></span>
+          <span id="impDisplay">~7.6M impressions · 95% viewability · +10% added value</span>
+        </div>
+      </div>
+
+      <!-- CHART -->
+      <div class="chart-wrap">
+        <canvas id="chartCanvas"></canvas>
+        <div class="chart-tooltip" id="chartTip"></div>
+      </div>
+
+      <!-- TIER BUTTONS + SLIDER -->
+      <div class="tier-row" id="tierRow">
+        <button class="tier-btn" data-v="100000"  onclick="setBudget(100000)">$100K</button>
+        <button class="tier-btn" data-v="250000"  onclick="setBudget(250000)">$250K</button>
+        <button class="tier-btn" data-v="500000"  onclick="setBudget(500000)">$500K</button>
+        <button class="tier-btn" data-v="750000"  onclick="setBudget(750000)">$750K</button>
+        <button class="tier-btn" data-v="1000000" onclick="setBudget(1000000)">$1M</button>
+        <div class="slider-wrap">
+          <span class="slider-lbl">Custom</span>
+          <input type="range" id="budgetSlider" min="100000" max="1000000" step="10000" value="250000" oninput="onSlider(+this.value)">
+        </div>
+      </div>
+
+      <!-- MARKETS -->
+      <div id="markets">
+        <div class="section-label">Market Allocation</div>
+        <div class="geo-grid" id="geoGrid"></div>
+      </div>
+
+      <!-- LINE ITEMS -->
+      <div id="lines">
+        <div class="section-label">Campaign Line Items</div>
+
+        <!-- FILTERS -->
+        <div class="filter-bar">
+          <div class="filter-row">
+            <span class="filter-lbl">Market</span>
+            <button class="fchip active" data-geo="all"   style="background:var(--card);color:var(--text);" onclick="setGeo('all')">All</button>
+            <button class="fchip" data-geo="US" onclick="setGeo('US')">🇺🇸 US</button>
+            <button class="fchip" data-geo="DE" onclick="setGeo('DE')">🇩🇪 DE</button>
+            <button class="fchip" data-geo="FR" onclick="setGeo('FR')">🇫🇷 FR</button>
+            <button class="fchip" data-geo="AU" onclick="setGeo('AU')">🇦🇺 AU</button>
+            <button class="fchip" data-geo="CA" onclick="setGeo('CA')">🇨🇦 CA</button>
+            <button class="fchip" data-geo="IT" onclick="setGeo('IT')">🇮🇹 IT</button>
+            <button class="fchip" data-geo="BR" onclick="setGeo('BR')">🇧🇷 BR</button>
+          </div>
+          <div class="filter-row">
+            <span class="filter-lbl">Format</span>
+            <button class="fchip active" data-fmt="all"    style="background:var(--card);color:var(--text);" onclick="setFmt('all')">All</button>
+            <button class="fchip" data-fmt="ctv"    onclick="setFmt('ctv')">CTV</button>
+            <button class="fchip" data-fmt="tradfi" onclick="setFmt('tradfi')">TradFi/Consumer Takeover</button>
+            <button class="fchip" data-fmt="studio" onclick="setFmt('studio')">Alkimi Studio</button>
+          </div>
+        </div>
+
+        <table class="campaign-table">
+          <thead>
+            <tr>
+              <th>Market</th>
+              <th>Category</th>
+              <th>Format</th>
+              <th>CPM</th>
+              <th>Budget</th>
+              <th>Impressions</th>
+              <th>Viewability</th>
+            </tr>
+          </thead>
+          <tbody id="lineTable"></tbody>
+        </table>
+        <div id="filterEmpty" style="display:none; padding:18px 12px; font-size:13px; color:var(--text-muted);">No line items match the current filters.</div>
+      </div>
+
+    </div><!-- /center -->
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <div class="panel-tabs">
+        <div class="panel-tab active" onclick="switchTab('summary')">Summary</div>
+        <div class="panel-tab" onclick="switchTab('details')">Details</div>
+        <div class="panel-tab" onclick="switchTab('formats')">Formats</div>
+        <div class="panel-tab" onclick="switchTab('sites')">Site List</div>
+        <div class="panel-tab" onclick="switchTab('addedvalue')">Added Value</div>
+      </div>
+
+      <!-- TAB: SUMMARY -->
+      <div class="panel-body" id="tab-summary">
+        <div class="panel-stat">
+          <div class="panel-stat-label">Total Budget</div>
+          <div class="panel-stat-value" id="panelBudget">$250,000</div>
+          <div class="panel-stat-sub">7 Markets</div>
+        </div>
+        <div class="panel-stat">
+          <div class="panel-stat-label">Total Impressions</div>
+          <div class="panel-stat-value" id="panelImps" style="color:var(--blue)">7.6M</div>
+          <div class="panel-stat-sub">95% avg viewability</div>
+        </div>
+        <hr class="pdiv">
+        <div class="panel-row">
+          <span class="panel-row-lbl">CTV Budget</span>
+          <span class="panel-row-val" id="pCTVBud">—</span>
+        </div>
+        <div class="panel-row">
+          <span class="panel-row-lbl">TradFi/Consumer Budget</span>
+          <span class="panel-row-val" id="pTFBud">—</span>
+        </div>
+        <div class="panel-row">
+          <span class="panel-row-lbl">Alkimi Studio Budget</span>
+          <span class="panel-row-val" id="pStudioBud">—</span>
+        </div>
+        <hr class="pdiv">
+        <div class="panel-row">
+          <span class="panel-row-lbl">CTV Impressions</span>
+          <span class="panel-row-val" id="pCTVImps">—</span>
+        </div>
+        <div class="panel-row">
+          <span class="panel-row-lbl">TradFi/Consumer Impressions</span>
+          <span class="panel-row-val" id="pTFImps">—</span>
+        </div>
+        <div class="panel-row">
+          <span class="panel-row-lbl">Alkimi Studio Impressions</span>
+          <span class="panel-row-val" id="pStudioImps">—</span>
+        </div>
+      </div>
+
+      <!-- TAB: DETAILS -->
+      <div class="panel-body" id="tab-details" style="display:none">
+        <div class="panel-stat-label" style="margin-bottom:12px;">Budget by Market</div>
+        <div id="detailGeoRows"></div>
+        <hr class="pdiv">
+        <div class="panel-stat-label" style="margin-bottom:12px;">CPM Reference</div>
+        <div class="panel-row"><span class="panel-row-lbl">CTV (US)</span><span class="panel-row-val">$30 CPM</span></div>
+        <div class="panel-row"><span class="panel-row-lbl">CTV (DE/FR/AU/CA)</span><span class="panel-row-val">$28 CPM</span></div>
+        <div class="panel-row"><span class="panel-row-lbl">CTV (IT)</span><span class="panel-row-val">$25 CPM</span></div>
+        <div class="panel-row"><span class="panel-row-lbl">CTV (BR)</span><span class="panel-row-val">$15 CPM</span></div>
+        <div class="panel-row"><span class="panel-row-lbl">TradFi/Consumer Takeover (US)</span><span class="panel-row-val">$25 CPM</span></div>
+        <div class="panel-row"><span class="panel-row-lbl">TradFi/Consumer Takeover (DE/FR/AU/CA)</span><span class="panel-row-val">$23 CPM</span></div>
+        <div class="panel-row"><span class="panel-row-lbl">TradFi/Consumer Takeover (IT)</span><span class="panel-row-val">$20 CPM</span></div>
+        <div class="panel-row"><span class="panel-row-lbl">TradFi/Consumer Takeover (BR)</span><span class="panel-row-val">$14 CPM</span></div>
+        <hr class="pdiv">
+        <div class="panel-row"><span class="panel-row-lbl">Primary KPI</span><span class="panel-row-val">Attention</span></div>
+      </div>
+
+      <!-- TAB: ADDED VALUE -->
+      <div class="panel-body" id="tab-addedvalue" style="display:none">
+        <div class="panel-stat">
+          <div style="font-size:13px; font-weight:700; color:var(--text); margin-bottom:8px;">Added Value Budget</div>
+          <div class="panel-stat-value" style="font-size:18px; color:var(--green)" id="avBudgetDisplay">—</div>
+          <div class="panel-stat-sub" id="avSubLine">10% of plan value at avg CPM</div>
+        </div>
+        <hr class="pdiv">
+        <div class="panel-stat">
+          <div style="font-size:13px; font-weight:700; color:var(--text); margin-bottom:8px;">Bonus Impressions</div>
+          <div class="panel-stat-value" style="font-size:18px; color:var(--purple-light)" id="avLine">—</div>
+        </div>
+        <hr class="pdiv">
+        <div class="av-box">
+          <div class="av-title">What's Included</div>
+          <div class="av-item"><span class="av-dot"></span>
+            <span><strong style="color:var(--text)">Bonus CTV Impressions</strong><br><span id="avCTVLine">Bonus CTV impressions included</span></span>
+          </div>
+          <div class="av-item"><span class="av-dot"></span>
+            <span><strong style="color:var(--text)">Brand Uplift Study</strong><br>Pre/post brand awareness measurement across target markets</span>
+          </div>
+          <div class="av-item"><span class="av-dot"></span>
+            <span><strong style="color:var(--text)">AI Visibility Study</strong><br>How Alkimi's AI models surface your brand in relevant queries</span>
+          </div>
+        </div>
+        <hr class="pdiv">
+        <div class="panel-row">
+          <span class="panel-row-lbl">AV Ratio</span>
+          <span class="panel-row-val" id="avRatioDisplay">10% of plan</span>
+        </div>
+        <div class="panel-row">
+          <span class="panel-row-lbl">AV CPM</span>
+          <span class="panel-row-val" id="avCpmDisplay">$25</span>
+        </div>
+        <div style="margin-top:10px; font-size:10.5px; color:var(--text-muted); line-height:1.55;">
+          AV is attributed proportionally across all markets based on share of spend, at the weighted average CPM of the plan.
+        </div>
+      </div>
+
+      <!-- TAB: FORMATS -->
+      <div class="panel-body" id="tab-formats" style="display:none">
+
+        <div style="margin-bottom:18px;">
+          <div style="font-size:12px; font-weight:700; color:var(--text); margin-bottom:6px;">
+            <span class="tag tag-ctv" style="margin-right:6px;">CTV</span>
+          </div>
+          <p style="font-size:12.5px; color:var(--text-muted); line-height:1.6;">:15/:30 non-skippable video on premium connected TV partners including Pluto TV, Paramount+, Samsung TV Plus, and Tubi - reaching audiences in lean-back, high-attention environments.</p>
+        </div>
+
+        <hr class="pdiv">
+
+        <div style="margin-bottom:18px;">
+          <div style="font-size:12px; font-weight:700; color:var(--text); margin-bottom:6px;">
+            <span class="tag tag-tradfi" style="margin-right:6px;">TradFi/Consumer Takeover</span>
+          </div>
+          <p style="font-size:12.5px; color:var(--text-muted); line-height:1.6;">100% Share of Screen - takeover of all IAB standard format ad units on a page across key Finance, Tech, and Sport sites. Zero competition, full page ownership at the moment of consumption.</p>
+        </div>
+
+        <hr class="pdiv">
+
+        <div>
+          <div style="font-size:12px; font-weight:700; color:var(--text); margin-bottom:6px;">
+            <span class="tag tag-studio" style="margin-right:6px;">Alkimi Studio</span>
+          </div>
+          <p style="font-size:12.5px; color:var(--text-muted); line-height:1.6;">Custom ad units engineered to drive attention and engagement - built in Alkimi Studio and measured against attention KPIs.</p>
+          <a href="https://my.cavai.com/creatives/51799-52628-53596-82660/banner/f98fd31b552ae87281757c6e339cb0b2_"
+             target="_blank"
+             style="display:inline-flex; align-items:center; gap:5px; margin-top:10px; font-size:11.5px; color:var(--purple-light); text-decoration:none; font-weight:600;">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+              <path d="M9 3h4v4h-1.5V5.56L7.28 9.78l-1.06-1.06L10.44 4.5H9z" fill="currentColor"/>
+              <path d="M3 3h4v1.5H4.5v7h7V10H13v4H3z" fill="currentColor" opacity="0.5"/>
+            </svg>
+            View creative example ↗
+          </a>
+        </div>
+
+      </div>
+
+      <!-- TAB: SITES -->
+      <div class="panel-body" id="tab-sites" style="display:none">
+        <div style="font-size:11px; color:var(--text-muted); line-height:1.5; margin-bottom:14px;">
+          All campaigns will run exclusively across an approved site list. A full site list by market will be provided for approval prior to campaign launch.
+        </div>
+
+        <div style="font-size:11px; font-weight:700; color:var(--text); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.06em;">CTV Partners</div>
+        <div style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:16px;">
+          <span class="site-chip">Paramount+</span><span class="site-chip">Tubi</span><span class="site-chip">NBCUniversal</span><span class="site-chip">Fox</span><span class="site-chip">A+E</span><span class="site-chip">AMC Networks</span><span class="site-chip">Roku</span><span class="site-chip">SamsungTV</span><span class="site-chip">DirectTV</span><span class="site-chip">Comcast</span><span class="site-chip">Warner Bros Discovery</span>
+        </div>
+
+        <hr class="pdiv">
+
+        <div style="font-size:11px; font-weight:700; color:var(--text); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.06em;">Finance & News</div>
+        <div style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:16px;">
+          <span class="site-chip">investing.com</span><span class="site-chip">investopedia.com</span><span class="site-chip">forbes.com</span><span class="site-chip">fortune.com</span><span class="site-chip">thestreet.com</span><span class="site-chip">businessinsider.com</span><span class="site-chip">reuters.com</span><span class="site-chip">wsj.com</span><span class="site-chip">cnbc.com</span><span class="site-chip">cnn.com</span><span class="site-chip">foxnews.com</span><span class="site-chip">thetimes.com</span><span class="site-chip">stocktwits.com</span><span class="site-chip">Bloomberg</span><span class="site-chip">Marketwatch</span><span class="site-chip">Yahoo Finance</span><span class="site-chip">The Motley Fool</span><span class="site-chip">BBC News</span>
+        </div>
+
+        <hr class="pdiv">
+
+        <div style="font-size:11px; font-weight:700; color:var(--text); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.06em;">Sport</div>
+        <div style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:14px;">
+          <span class="site-chip">ESPN</span><span class="site-chip">Eurosport</span><span class="site-chip">Yahoo Sports</span><span class="site-chip">The Guardian</span><span class="site-chip">The Telegraph</span><span class="site-chip">talkSPORT</span><span class="site-chip">Footballco</span><span class="site-chip">Mundial</span><span class="site-chip">Sport Bible</span><span class="site-chip">Football365</span><span class="site-chip">Euronews</span>
+        </div>
+
+        <div style="font-size:10px; color:var(--text-dim); font-style:italic; margin-top:6px;">
+          Full site list by market will be provided for approval — campaigns will run across approved sites only.
+        </div>
+      </div>
+
+    </div><!-- /right-panel -->
+
+  </div><!-- /content-area -->
+</main>
+
+<script>
+/* ── DATA ── */
+const LINES = [
+  {geo:'US', color:'#5C26FF', fmt:'ctv',    tag:'CTV',             t:'Premium CTV',                           cpm:30,   view:0.95, r:0.25},
+  {geo:'US', color:'#5C26FF', fmt:'tradfi', tag:'TradFi/Consumer Takeover', t:'100% Share of Screen',             cpm:25,   view:0.80, r:0.14},
+  {geo:'US', color:'#5C26FF', fmt:'studio', tag:'Alkimi Studio',   t:'Custom Attention Units',           cpm:22,   view:0.75, r:0.01},
+  {geo:'DE', color:'#00E87B', fmt:'ctv',    tag:'CTV',             t:'Premium CTV',                           cpm:28,   view:0.95, r:0.08},
+  {geo:'DE', color:'#00E87B', fmt:'tradfi', tag:'TradFi/Consumer Takeover', t:'100% Share of Screen',             cpm:23,   view:0.80, r:0.03},
+  {geo:'DE', color:'#00E87B', fmt:'studio', tag:'Alkimi Studio',   t:'Custom Attention Units',           cpm:20,   view:0.75, r:0.01},
+  {geo:'FR', color:'#8A5CFF', fmt:'ctv',    tag:'CTV',             t:'Premium CTV',                           cpm:28,   view:0.95, r:0.06},
+  {geo:'FR', color:'#8A5CFF', fmt:'tradfi', tag:'TradFi/Consumer Takeover', t:'100% Share of Screen',             cpm:23,   view:0.80, r:0.03},
+  {geo:'FR', color:'#8A5CFF', fmt:'studio', tag:'Alkimi Studio',   t:'Custom Attention Units',           cpm:20,   view:0.75, r:0.01},
+  {geo:'AU', color:'#38BDF8', fmt:'ctv',    tag:'CTV',             t:'Premium CTV',                           cpm:28,   view:0.95, r:0.07},
+  {geo:'AU', color:'#38BDF8', fmt:'tradfi', tag:'TradFi/Consumer Takeover', t:'100% Share of Screen',             cpm:23,   view:0.80, r:0.02},
+  {geo:'AU', color:'#38BDF8', fmt:'studio', tag:'Alkimi Studio',   t:'Custom Attention Units',           cpm:20,   view:0.75, r:0.01},
+  {geo:'CA', color:'#F87171', fmt:'ctv',    tag:'CTV',             t:'Premium CTV',                           cpm:28,   view:0.95, r:0.07},
+  {geo:'CA', color:'#F87171', fmt:'tradfi', tag:'TradFi/Consumer Takeover', t:'100% Share of Screen',             cpm:23,   view:0.80, r:0.02},
+  {geo:'CA', color:'#F87171', fmt:'studio', tag:'Alkimi Studio',   t:'Custom Attention Units',           cpm:20,   view:0.75, r:0.01},
+  {geo:'IT', color:'#34D399', fmt:'ctv',    tag:'CTV',             t:'Premium CTV',                           cpm:25,   view:0.95, r:0.04},
+  {geo:'IT', color:'#34D399', fmt:'tradfi', tag:'TradFi/Consumer Takeover', t:'100% Share of Screen',             cpm:20,   view:0.80, r:0.02},
+  {geo:'IT', color:'#34D399', fmt:'studio', tag:'Alkimi Studio',   t:'Custom Attention Units',           cpm:17,   view:0.75, r:0.01},
+  {geo:'BR', color:'#FBBF24', fmt:'ctv',    tag:'CTV',             t:'Premium CTV',                           cpm:15,   view:0.95, r:0.05},
+  {geo:'BR', color:'#FBBF24', fmt:'tradfi', tag:'TradFi/Consumer Takeover', t:'100% Share of Screen',             cpm:14,   view:0.80, r:0.05},
+  {geo:'BR', color:'#FBBF24', fmt:'studio', tag:'Alkimi Studio',   t:'Custom Attention Units',           cpm:11,   view:0.75, r:0.01},
+];
+const FLAGS = {US:'🇺🇸', DE:'🇩🇪', FR:'🇫🇷', AU:'🇦🇺', CA:'🇨🇦', IT:'🇮🇹', BR:'🇧🇷'};
+const GEOS  = ['US','DE','FR','AU','CA','IT','BR'];
+function avRatio(b) {
+  // Piecewise: 10% @ $100K, 12.5% @ $250K, 15% @ $500K, 17.5% @ $750K, 20% @ $1M
+  const steps = [[100000,0.10],[250000,0.125],[500000,0.15],[750000,0.175],[1000000,0.20]];
+  if (b <= steps[0][0]) return steps[0][1];
+  if (b >= steps[steps.length-1][0]) return steps[steps.length-1][1];
+  for (let i = 0; i < steps.length - 1; i++) {
+    const [b0,r0] = steps[i], [b1,r1] = steps[i+1];
+    if (b >= b0 && b <= b1) return r0 + (b - b0) / (b1 - b0) * (r1 - r0);
+  }
+  return 0.10;
+}
+function fmtPct(r) {
+  const v = r * 100;
+  return (v % 1 === 0 ? v.toFixed(0) : v.toFixed(1)) + '%';
+}
+const MIN = 100000, MAX = 1000000;
+let budget = 250000;
+
+/* ── FILTER STATE ── */
+const GEO_COLORS = {US:'#5C26FF',DE:'#00E87B',FR:'#8A5CFF',AU:'#38BDF8',CA:'#F87171',IT:'#34D399',BR:'#FBBF24'};
+const FMT_COLORS = {ctv:'#4B9EFF', tradfi:'#00C896', studio:'#FBBF24'};
+let geoFilter = new Set(); // empty Set = show all markets
+let fmtFilter = 'all';
+
+function setGeo(g) {
+  if (g === 'all') {
+    geoFilter.clear();
+  } else {
+    // Toggle the clicked market on/off
+    if (geoFilter.has(g)) {
+      geoFilter.delete(g);
+    } else {
+      geoFilter.add(g);
+    }
+    // If every market is selected, treat as "All"
+    if (geoFilter.size === GEOS.length) geoFilter.clear();
+  }
+  updateGeoChips();
+  renderLineTable(budget);
+}
+
+function updateGeoChips() {
+  const allActive = geoFilter.size === 0;
+  document.querySelectorAll('.fchip[data-geo]').forEach(el => {
+    const g = el.dataset.geo;
+    if (g === 'all') {
+      el.classList.toggle('active', allActive);
+      el.style.background = allActive ? 'var(--card)' : '';
+      el.style.color      = allActive ? 'var(--text)'  : '';
+    } else {
+      const on = geoFilter.has(g);
+      el.classList.toggle('active', on);
+      el.style.background = on ? GEO_COLORS[g] : '';
+      el.style.color      = on ? '#fff'         : '';
+    }
+  });
+}
+
+/* ── TAB SWITCHING ── */
+function switchTab(name) {
+  ['summary','details','addedvalue','formats','sites'].forEach(t => {
+    document.getElementById('tab-' + t).style.display = t === name ? '' : 'none';
+  });
+  document.querySelectorAll('.panel-tab').forEach((el, i) => {
+    const names = ['summary','details','formats','sites','addedvalue'];
+    el.classList.toggle('active', names[i] === name);
+  });
+}
+
+function setFmt(f) {
+  fmtFilter = f;
+  document.querySelectorAll('.fchip[data-fmt]').forEach(el => {
+    const isActive = el.dataset.fmt === f;
+    el.classList.toggle('active', isActive);
+    el.style.background = isActive ? (f === 'all' ? 'var(--card)' : FMT_COLORS[f]) : '';
+    el.style.color      = isActive ? (f === 'all' ? 'var(--text)' : '#fff')         : '';
+  });
+  renderLineTable(budget);
+}
+
+function renderLineTable(b) {
+  const tbody = document.getElementById('lineTable');
+  tbody.innerHTML = '';
+  const filtered = LINES.filter(l =>
+    (geoFilter.size === 0 || geoFilter.has(l.geo)) &&
+    (fmtFilter === 'all'  || l.fmt === fmtFilter)
+  );
+  const empty = document.getElementById('filterEmpty');
+  if (filtered.length === 0) {
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  filtered.forEach(l => {
+    const lb = b * l.r, li = lb / l.cpm * 1000;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><span style="color:${l.color};font-weight:700">${l.geo}</span></td>
+      <td><span class="tag tag-${l.fmt}">${l.tag}</span></td>
+      <td style="color:var(--text-muted);font-size:12px">${l.t}</td>
+      <td>$${l.cpm}</td>
+      <td>${fmt$(lb)}</td>
+      <td>${fmtI(li)}</td>
+      <td>${Math.round(l.view*100)}%</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+/* ── HELPERS ── */
+function fmt$(n) {
+  if (n >= 1e6) return '$' + (n/1e6).toFixed(2) + 'M';
+  if (n >= 1000) return '$' + Math.round(n/1000) + 'K';
+  return '$' + Math.round(n);
+}
+function fmtI(n) {
+  if (n >= 1e6) return (n/1e6).toFixed(1) + 'M';
+  if (n >= 1000) return Math.round(n/1000) + 'K';
+  return Math.round(n).toString();
+}
+
+function calc(b) {
+  let totalI=0, ctvB=0, tfB=0, studioB=0, ctvI=0, tfI=0, studioI=0;
+  let wCpmSum=0, wRSum=0;
+  const geo={};
+  LINES.forEach(l => {
+    const lb = b * l.r, li = lb / l.cpm * 1000;
+    totalI += li;
+    wCpmSum += l.r * l.cpm; wRSum += l.r;
+    if      (l.fmt==='ctv')    { ctvB+=lb;    ctvI+=li;    }
+    else if (l.fmt==='tradfi') { tfB+=lb;     tfI+=li;     }
+    else                       { studioB+=lb; studioI+=li; }
+    if (!geo[l.geo]) geo[l.geo] = {b:0, i:0, color:l.color};
+    geo[l.geo].b += lb; geo[l.geo].i += li;
+  });
+  const avgCpm = wRSum > 0 ? wCpmSum / wRSum : 25;
+  const avB = b * avRatio(b), avI = avB / avgCpm * 1000;
+  ctvI += avI; totalI += avI;
+  return {totalI, ctvB, tfB, studioB, ctvI, tfI, studioI, geo, avI, avB, avgCpm};
+}
+
+/* ── UI UPDATE ── */
+function updateUI(b) {
+  budget = b;
+  const s = calc(b);
+
+  document.getElementById('budgetDisplay').textContent = fmt$(b);
+  const avPct = fmtPct(avRatio(b));
+  document.getElementById('impDisplay').textContent    = `~${fmtI(s.totalI)} impressions · 95% viewability · +${avPct} added value`;
+  document.getElementById('avRatioDisplay').textContent = `${avPct} of plan`;
+  document.getElementById('panelBudget').textContent   = fmt$(b);
+  document.getElementById('panelImps').textContent     = fmtI(s.totalI);
+  document.getElementById('pCTVBud').textContent       = fmt$(s.ctvB);
+  document.getElementById('pTFBud').textContent        = fmt$(s.tfB);
+  document.getElementById('pStudioBud').textContent    = fmt$(s.studioB);
+  document.getElementById('pCTVImps').textContent      = fmtI(s.ctvI);
+  document.getElementById('pTFImps').textContent       = fmtI(s.tfI);
+  document.getElementById('pStudioImps').textContent   = fmtI(s.studioI);
+  const avgCpmRounded = Math.round(s.avgCpm);
+  document.getElementById('avBudgetDisplay').textContent = fmt$(s.avB);
+  document.getElementById('avLine').textContent        = `+${fmtI(s.avI)} bonus CTV impressions`;
+  document.getElementById('avCTVLine').textContent     = `+${fmtI(s.avI)} bonus CTV impressions`;
+  document.getElementById('avSubLine').textContent     = `${avPct} of plan value at $${avgCpmRounded} avg CPM`;
+  document.getElementById('avCpmDisplay').textContent  = `$${avgCpmRounded}`;
+
+  // Details tab — per-geo rows
+  const detailRows = document.getElementById('detailGeoRows');
+  if (detailRows) {
+    detailRows.innerHTML = '';
+    GEOS.forEach(g => {
+      const gs = s.geo[g];
+      const row = document.createElement('div');
+      row.className = 'panel-row';
+      row.innerHTML = `
+        <span class="panel-row-lbl" style="display:flex;align-items:center;gap:5px;">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${gs.color}"></span>
+          ${FLAGS[g]} ${g}
+        </span>
+        <span class="panel-row-val">${fmt$(gs.b)} · ${fmtI(gs.i)}</span>`;
+      detailRows.appendChild(row);
+    });
+  }
+
+  // Geo grid
+  const grid = document.getElementById('geoGrid');
+  grid.innerHTML = '';
+  GEOS.forEach(g => {
+    const gs = s.geo[g];
+    const card = document.createElement('div');
+    card.className = 'geo-card';
+    card.style.borderTopColor = gs.color;
+    card.innerHTML = `
+      <span class="geo-flag">${FLAGS[g]}</span>
+      <div class="geo-name">${g}</div>
+      <div class="geo-budget">${fmt$(gs.b)}</div>
+      <div class="geo-imps" style="color:${gs.color}">${fmtI(gs.i)}</div>`;
+    grid.appendChild(card);
+  });
+
+  // Line table — respects active filters
+  renderLineTable(b);
+
+  drawChart(b);
+}
+
+/* ── CHART ── */
+const CV  = document.getElementById('chartCanvas');
+const CTX = CV.getContext('2d');
+
+// Pre-compute impression curve
+const CURVE = (() => {
+  const pts = [];
+  for (let i=0; i<=80; i++) {
+    const b = MIN + (MAX-MIN)*(i/80);
+    pts.push({b, i: calc(b).totalI});
+  }
+  return pts;
+})();
+
+// Add micro-noise for organic price-chart feel (baked in so it's stable)
+const NOISE = CURVE.map((_, idx) => {
+  // deterministic pseudo-noise seeded by index
+  const seed = Math.sin(idx * 127.1 + 311.7) * 43758.5453;
+  return (seed - Math.floor(seed)) * 0.028 - 0.014; // ±1.4% ripple
+});
+
+function drawChart(bud) {
+  const W = CV.offsetWidth || CV.parentElement.offsetWidth;
+  const H = CV.offsetHeight || 240;
+  CV.width  = W * (window.devicePixelRatio || 1);
+  CV.height = H * (window.devicePixelRatio || 1);
+  CV.style.width  = W + 'px';
+  CV.style.height = H + 'px';
+  CTX.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+
+  const PAD = {t:16, r:16, b:28, l:58};
+  const cW = W - PAD.l - PAD.r;
+  const cH = H - PAD.t - PAD.b;
+
+  const maxI = CURVE[CURVE.length-1].i * 1.08;
+
+  function xp(b)  { return PAD.l + (b - MIN) / (MAX - MIN) * cW; }
+  function yp(im) { return PAD.t + cH - (im / maxI) * cH; }
+
+  // Apply noise to get y positions with organic wobble
+  function ypNoisy(idx) {
+    const p = CURVE[idx];
+    return yp(p.i * (1 + NOISE[idx]));
+  }
+
+  CTX.clearRect(0, 0, W, H);
+
+  // Grid lines
+  CTX.strokeStyle = '#1E1E2E';
+  CTX.lineWidth = 1;
+  for (let i=0; i<=4; i++) {
+    const y = PAD.t + cH/4*i;
+    CTX.beginPath(); CTX.moveTo(PAD.l, y); CTX.lineTo(W-PAD.r, y); CTX.stroke();
+    const val = maxI * (1 - i/4);
+    CTX.fillStyle = '#4A4A60';
+    CTX.font = '10px -apple-system, sans-serif';
+    CTX.textAlign = 'right';
+    CTX.fillText(fmtI(val), PAD.l - 6, y + 4);
+  }
+
+  // Current x position
+  const cx = xp(bud);
+  const cIdx = Math.round((bud - MIN) / (MAX - MIN) * 80);
+  const cy = ypNoisy(Math.min(cIdx, 80));
+
+  // ── Full dim future curve ──
+  CTX.beginPath();
+  CURVE.forEach((p, i) => {
+    const x = xp(p.b), y = ypNoisy(i);
+    i === 0 ? CTX.moveTo(x, y) : CTX.lineTo(x, y);
+  });
+  CTX.strokeStyle = 'rgba(75,158,255,0.12)';
+  CTX.lineWidth = 1.5;
+  CTX.stroke();
+
+  // ── Filled area up to current ──
+  CTX.beginPath();
+  CTX.moveTo(PAD.l, PAD.t + cH);
+  CURVE.forEach((p, i) => {
+    if (p.b > bud + (MAX-MIN)/80) return;
+    CTX.lineTo(xp(p.b), ypNoisy(i));
+  });
+  CTX.lineTo(cx, cy);
+  CTX.lineTo(cx, PAD.t + cH);
+  CTX.closePath();
+  const grad = CTX.createLinearGradient(0, PAD.t, 0, PAD.t + cH);
+  grad.addColorStop(0, 'rgba(75,158,255,0.22)');
+  grad.addColorStop(1, 'rgba(75,158,255,0.01)');
+  CTX.fillStyle = grad;
+  CTX.fill();
+
+  // ── Active curve (left of cursor) ──
+  CTX.beginPath();
+  let first = true;
+  CURVE.forEach((p, i) => {
+    if (p.b > bud + (MAX-MIN)/80) return;
+    const x = xp(p.b), y = ypNoisy(i);
+    if (first) { CTX.moveTo(x, y); first = false; }
+    else CTX.lineTo(x, y);
+  });
+  CTX.lineTo(cx, cy);
+  CTX.strokeStyle = '#4B9EFF';
+  CTX.lineWidth = 2;
+  CTX.stroke();
+
+  // ── Vertical dashed line ──
+  CTX.save();
+  CTX.setLineDash([3, 5]);
+  CTX.beginPath();
+  CTX.moveTo(cx, PAD.t); CTX.lineTo(cx, PAD.t + cH);
+  CTX.strokeStyle = 'rgba(123,94,248,0.5)';
+  CTX.lineWidth = 1;
+  CTX.stroke();
+  CTX.restore();
+
+  // ── Dot ──
+  CTX.beginPath();
+  CTX.arc(cx, cy, 8, 0, Math.PI*2);
+  CTX.fillStyle = 'rgba(75,158,255,0.2)';
+  CTX.fill();
+  CTX.beginPath();
+  CTX.arc(cx, cy, 4.5, 0, Math.PI*2);
+  CTX.fillStyle = '#4B9EFF';
+  CTX.fill();
+
+  // ── X-axis labels ──
+  [100000, 250000, 500000, 750000, 1000000].forEach(b => {
+    CTX.fillStyle = '#4A4A60';
+    CTX.font = '10px -apple-system, sans-serif';
+    CTX.textAlign = 'center';
+    CTX.fillText(fmt$(b), xp(b), H - 8);
+  });
+}
+
+/* ── TIER BUTTONS ── */
+function setBudget(v) {
+  document.getElementById('budgetSlider').value = v;
+  document.querySelectorAll('.tier-btn').forEach(b => {
+    b.classList.toggle('active', +b.dataset.v === v);
+  });
+  updateUI(v);
+}
+function onSlider(v) {
+  document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('active'));
+  updateUI(v);
+}
+
+/* ── SCROLL HELPERS ── */
+function scrollSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+}
+
+/* ── CHART HOVER ── */
+CV.addEventListener('mousemove', e => {
+  const rect = CV.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const W = rect.width;
+  const PAD_L = 58, PAD_R = 16;
+  const cW = W - PAD_L - PAD_R;
+  const ratio = Math.max(0, Math.min(1, (mx - PAD_L) / cW));
+  const hb = MIN + (MAX - MIN) * ratio;
+  const hs = calc(hb);
+  const tip = document.getElementById('chartTip');
+  tip.style.display = 'block';
+  tip.style.left = (e.clientX - rect.left + 14) + 'px';
+  tip.style.top  = (e.clientY - rect.top  - 40) + 'px';
+  tip.innerHTML = `<strong>${fmt$(hb)}</strong><br>${fmtI(hs.totalI)} impressions`;
+});
+CV.addEventListener('mouseleave', () => {
+  document.getElementById('chartTip').style.display = 'none';
+});
+
+/* ── INIT ── */
+window.addEventListener('resize', () => drawChart(budget));
+setBudget(250000);
+</script>
+</body>
+</html>
